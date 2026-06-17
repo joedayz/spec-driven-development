@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tabla Periódica Interactiva</title>
+  <!-- Anti-FOUC: apply theme before CSS renders to avoid flash -->
+  <script>
+    (function () {
+      var stored;
+      try { stored = localStorage.getItem('ptable-theme'); } catch (e) {}
+      var theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <h1>Tabla Periódica de los Elementos</h1>
+    <div class="search-wrapper">
+      <svg class="search-icon" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.6"/>
+        <line x1="13" y1="13" x2="18" y2="18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+      <input
+        type="search"
+        id="search-input"
+        placeholder="Buscar por nombre, símbolo o número atómico…"
+        autocomplete="off"
+        spellcheck="false"
+        aria-label="Buscar elemento"
+      >
+    </div>
+    <!-- Theme toggle button: moon shown in light mode, sun shown in dark mode -->
+    <button id="theme-toggle" aria-label="Alternar modo oscuro/claro">
+      <!-- Moon icon (visible in light mode) -->
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z" fill="currentColor"/>
+      </svg>
+      <!-- Sun icon (visible in dark mode) -->
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="12" cy="12" r="5" fill="currentColor"/>
+        <line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </header>
+
+  <main class="site-main">
+    <div class="table-scroll">
+      <div id="periodic-table" role="grid" aria-label="Tabla periódica de los elementos"></div>
+    </div>
+    <div id="legend" role="list" aria-label="Leyenda de categorías"></div>
+  </main>
+
+  <!-- Detail overlay panel (position:fixed — table layout unaffected) -->
+  <div id="detail-overlay" class="hidden" role="dialog" aria-modal="true" aria-labelledby="detail-name">
+    <div id="detail-panel">
+      <button id="close-btn" aria-label="Cerrar detalle">&times;</button>
+      <div id="detail-content"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
