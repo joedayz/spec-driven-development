@@ -20,7 +20,7 @@ Opciones útiles:
 
 ```bash
 # Solo para agentes concretos
-npx skills add https://github.com/sivaprasadreddy/sdd-skills -a cursor -a claude-code -a codex -y
+npx skills add https://github.com/sivaprasadreddy/sdd-skills -a cursor -a claude-code -a codex -a github-copilot -y
 
 # Instalación global (todas tus carpetas de proyecto)
 npx skills add https://github.com/sivaprasadreddy/sdd-skills -g -y
